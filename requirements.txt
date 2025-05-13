@@ -1,0 +1,6 @@
+fastapi[standard]
+sqlmodel
+passlib
+PyJWT
+psycopg2-binary
+requests

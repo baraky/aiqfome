@@ -12,6 +12,16 @@ async def add_product_to_favorites(db: Session, product_id: int, customer_id: UU
     if not await get_product_by_id(product_id):
         raise ProductNotFoundError(product_id)
 
+    existing_favorite = (
+        db.query(Favorite)
+        .filter(Favorite.customer_id == customer_id)
+        .filter(Favorite.product_id == product_id)
+        .first()
+    )
+    
+    if existing_favorite:
+        raise ProductAlreadyFavoritedError(product_id)
+
     try:
         new_favorite = Favorite(product_id=product_id, customer_id=customer_id)
         db.add(new_favorite)
@@ -79,5 +89,9 @@ def remove_product_from_favorites(db: Session, product_id: int, customer_id: UUI
         .filter(Favorite.product_id == product_id)
         .first()
     )
+
+    if not favorite:
+        raise FavoriteNotFoundError(product_id)
+
     db.delete(favorite)
     db.commit()

@@ -13,6 +13,14 @@ class FavoriteAlreadyExistsError(HTTPException):
     def __init__(self, product_id=None):
         super().__init__(status_code=500, detail=f"Product with id {product_id} is already in favorite list")
 
+class UniqueEmailError(HTTPException):
+    def __init__(self, email: str):
+        super().__init__(status_code=500, detail=f"The email {email} is already in use")
+
+class ProductAlreadyFavoritedError(HTTPException):
+    def __init__(self, product_id: str):
+        super().__init__(status_code=500, detail=f"The product with id {product_id} is already in customer favorite list")
+
 class FavoriteNotFoundError(HTTPException):
     def __init__(self, product_id=None):
         message = "Favorite product not found" if product_id is None else f"Favorite product with id {product_id} not found"

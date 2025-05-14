@@ -11,7 +11,7 @@ def get_customer_by_id(db: Session, customer_id: UUID) -> CustomerReponse:
         raise CustomerNotFoundError(customer_id)
     return customer
 
-def register_customer(db: Session, register_customer_request: RegisterCustomerRequest) -> None:
+def register_customer(db: Session, register_customer_request: RegisterCustomerRequest) -> Customer:
     existing_customer = db.query(Customer).filter(
         Customer.email == register_customer_request.email
     ).first()
@@ -27,6 +27,9 @@ def register_customer(db: Session, register_customer_request: RegisterCustomerRe
     )
     db.add(new_customer)
     db.commit()
+    db.refresh(new_customer)
+
+    return new_customer
 
 def update_customer(db: Session, customer_id: UUID, costumer_update: RegisterCustomerRequest) -> Customer:
     customer_data = costumer_update.model_dump(exclude_unset=True)

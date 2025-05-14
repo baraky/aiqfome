@@ -9,10 +9,10 @@ router = APIRouter(
     prefix='/customers',
     tags=['Customers']
 )
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=CustomerReponse, status_code=status.HTTP_201_CREATED)
 async def register_customer(db: DbSession,
                             register_customer_request: RegisterCustomerRequest):
-    service.register_customer(db, register_customer_request)
+    return service.register_customer(db, register_customer_request)
 
 @router.put("/me", response_model=CustomerReponse)
 async def update_current_customer(db: DbSession,

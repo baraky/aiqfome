@@ -1,6 +1,6 @@
 fastapi[standard]
-sqlmodel
+sqlalchemy
 passlib
 PyJWT
 psycopg2-binary
-requests
+httpx

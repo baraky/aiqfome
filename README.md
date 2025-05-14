@@ -4,6 +4,7 @@
 Download do repo e instalação dos pacotes:
 - `git clone https://github.com/baraky/aiqfome.git && cd aiqfome`
 - `python3 -m venv .venv`
+- `source .venv/bin/activate`
 - `pip3 install -r requirements.txt`
 
 # Banco de dados
